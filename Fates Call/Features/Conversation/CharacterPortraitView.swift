@@ -56,28 +56,25 @@ struct CharacterPortraitView: View {
     }
     
     var body: some View {
-        VStack(spacing: 4) {
-            Group {
-                if let imageName = portraitImageName {
-                    Image(imageName)
-                        .resizable()
-                        .scaledToFit()
-                } else {
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.white)
-                        .background(Color.gray.opacity(0.3))
-                }
+        Group {
+            if let imageName = portraitImageName {
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(.white)
+                    .background(Color.gray.opacity(0.3))
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .scaleEffect(x: mirrorEffect * portraitScale,
-                         y: portraitScale, anchor: .bottom)
-            .opacity(portraitOpacity)
-            .offset(x: stackOffset + horizontalOffset, y: verticalOffset)
-            .animation(.easeInOut(duration: 0.3), value: isActive)
-
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+        .scaleEffect(x: mirrorEffect * portraitScale,
+                     y: portraitScale, anchor: .bottom)
+        .opacity(portraitOpacity)
+        .offset(x: stackOffset + horizontalOffset, y: verticalOffset)
+        .animation(.easeInOut(duration: 0.3), value: isActive)
     }
     
 }

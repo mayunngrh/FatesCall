@@ -32,28 +32,40 @@ struct DialogueBoxView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
+        VStack(spacing: 0) {
 
-                Text(speakerName)
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.yellow)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 12) {
 
-                Text(displayedText)
-                    .font(.system(size: 15, weight: .regular))
-                    .foregroundColor(.white)
-                    .lineSpacing(4)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .fixedSize(horizontal: false, vertical: true)
+                    Text(speakerName)
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundColor(.yellow)
 
-                if hasChoices && !isTyping {
-                    choicesView
-                } else {
-                    navigationView
+                    Text(displayedText)
+                        .font(.system(size: 15, weight: .regular))
+                        .foregroundColor(.white)
+                        .lineSpacing(4)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    if hasChoices && !isTyping {
+                        choicesView
+                    }
+
                 }
-
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+                .padding(.bottom, 8)
             }
-            .padding(20)
+
+            if hasChoices && !isTyping {
+                EmptyView()
+            } else {
+                navigationView
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 14)
+            }
+
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.88))
@@ -112,6 +124,7 @@ struct DialogueBoxView: View {
                     .foregroundColor(.white)
             }
         }
+        .padding(.bottom, 12)
     }
 
     private var nextButtonLabel: String {
